@@ -1,0 +1,34 @@
+.text-attention {
+  animation: colorized .7s ease;
+  animation-iteration-count: infinite;
+}
+
+@keyframes colorized {
+  0% {
+    color: purple;
+  }
+
+  15% {
+    color: indigo;
+  }
+
+  30% {
+    color: blue;
+  }
+
+  45% {
+    color: green;
+  }
+
+  60% {
+    color: yellow;
+  }
+
+  75% {
+    color: orange;
+  }
+
+  90% {
+    color: red;
+  }
+}
