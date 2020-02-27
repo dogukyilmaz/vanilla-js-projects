@@ -12,6 +12,6 @@ function replaceText(element) {
       newElement.innerHTML = element.textContent.replace(/(word)/gi, '<span class="text-attention">$1</span>')
       element.replaceWith(newElement)
     }
-    // element.textContent =  element.textContent.replace(/word/gi, 'yarasa');
+    // element.textContent =  element.textContent.replace(/word/gi, 'word');
   }
 }
