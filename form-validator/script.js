@@ -8,11 +8,12 @@ const repassword = document.getElementById('repassword');
 form.addEventListener('submit', function (e) {
 	e.preventDefault();
 
-	checkRequiredFields([username, email, password, repassword]);
 	checkLengthFields(username, 3, 15);
 	checkLengthFields(password, 6, 12);
 	isValidEmail(email);
 	checkPasswordsMathc(password, repassword);
+	checkRequiredFields([username, email, password, repassword]);
+	submitCorrect();
 });
 
 // Display Success Border
@@ -40,9 +41,9 @@ function isValidEmail(element) {
 // Check if fields empty
 function checkRequiredFields(elementsArr) {
 	elementsArr.forEach((element) => {
-		element.value.trim() === ''
-			? showError(element, `${element.name} is required.`)
-			: showSuccess(element);
+		element.value.trim() === '' &&
+			showError(element, `${element.name} is required.`);
+		// : showSuccess(element);
 	});
 }
 
@@ -51,12 +52,23 @@ function checkLengthFields(element, min, max) {
 	element.value.length < min || element.value.length > max
 		? showError(
 				element,
-				`${element.name} have to be between ${min} - ${max} characterss;`
+				`${element.name} has to be between ${min}-${max} characters.`
 		  )
 		: showSuccess(element);
 }
 
 // Check match passwords
 function checkPasswordsMathc(pass1, pass2) {
-	pass1.value !== pass2.value && showError(pass2, 'Passwords do not match!');
+	pass1.value !== pass2.value
+		? showError(pass2, 'Passwords do not match!')
+		: showSuccess(pass2);
+}
+
+// All validated then Spinner or sth. etc. ~~Thank you.
+function submitCorrect() {
+	if (document.querySelectorAll('.success').length === 4) {
+		const afterMessage = document.querySelector('#title');
+		afterMessage.innerText = `Thank You!`;
+		afterMessage.className = 'validated-form';
+	}
 }
