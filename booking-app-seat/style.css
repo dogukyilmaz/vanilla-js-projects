@@ -80,7 +80,6 @@ body {
 .seat:not(.occupied):hover {
   cursor: pointer;
   transform: scale(1.25);
-  background-color: var(--hovered-seat-color);
 }
 
 .showcase .seat:not(.occupied):hover {
@@ -123,10 +122,16 @@ body {
   border-radius: 5px;
 }
 
-p.text {
+p.text,
+p.warning-text {
   margin: 5px 0;
 }
 
-p.text span {
+p.text span,
+p.warning-text span {
   color: var(--selected-seat-color)
+}
+
+p.hide {
+  display: none;
 }

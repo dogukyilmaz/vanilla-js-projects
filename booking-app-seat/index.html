@@ -13,7 +13,7 @@
   <div class="movie-container">
     <label> Pick a movie</label>
     <select id="movie">
-      <option selected disabled>Select a movie</option>
+      <option value="" selected disabled>Select a movie</option>
       <option value="10">Inception (€10)</option>
       <option value="12">Interstellar (€12)</option>
       <option value="8">Pulp Fiction (€8)</option>
@@ -101,7 +101,8 @@
     </div>
   </div>
 
-  <p class="text">You've selected <span id="count">0</span> seats for a price of €<span id="total">0</span></p>
+  <p class="text hide">You've selected <span id="count">0</span> seats for a price of €<span id="total">0</span></p>
+  <p class="warning-text">Please select a movie.</p>
 
   <script src="script.js"></script>
 </body>
