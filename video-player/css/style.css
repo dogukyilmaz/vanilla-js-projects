@@ -62,7 +62,7 @@ h1 {
   visibility: hidden;
   position: absolute;
   bottom: 0;
-  background-color: rgba(0, 0, 0, .3);
+  background-color: rgba(0, 0, 0, 0.527);
   color: #fff;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
@@ -91,6 +91,24 @@ h1 {
   cursor: pointer;
   outline: 0;
   margin: 0 1px;
+  /* padding: 5px; */
+  width: 50px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: auto;
+}
+
+.controls .btn:hover {
+  background-color: rgba(255, 255, 255, .2);
+}
+
+.controls i {
+  text-align: center;
+  vertical-align: middle;
 }
 
 .controls .fa-play {
@@ -101,7 +119,8 @@ h1 {
   color: #ac3b18
 }
 
-.controls .fa-pause {
+.controls .fa-pause,
+.controls .fa-expand {
   color: #fff
 }
 
@@ -115,9 +134,17 @@ h1 {
   color: rgb(194, 206, 23)
 }
 
+.controls .fa-volume-up,
+.controls .fa-volume-mute {
+  color: rgb(194, 206, 23)
+}
+
+
 .controls .timestamp {
   color: #fff;
   margin-left: 10px;
+  margin-right: 5px;
+  min-width: 45px;
 }
 
 @media(max-width: 800px) {
@@ -125,5 +152,12 @@ h1 {
   .screen,
   .controls {
     width: 75%;
+
+  }
+
+  .controls .btn {
+
+    width: calc(50*100/75)px;
+    height: 30px;
   }
 }
