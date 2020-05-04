@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Jost&display=swap');
+
+:root {
+  --font-family-type1: 'Jost', sans-serif;
+  --font-family-type2: 'Comfortaa', cursive;
+
+  --bg-color-1: ##FFC371;
+  --bg-color-2: ##FF5F6D;
+  --white-text-color: #fff;
+
+  --default-seat-color: #444451;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-family-type1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: 100vh;
+  margin: 0;
+  background: #FF5F6D;
+  background: -webkit-linear-gradient(to right, #FFC371, #FF5F6D);
+  background: linear-gradient(to right, #FFC371, #FF5F6D);
+
+}
+
+h1 {
+  font-family: var(--font-family-type2);
+  color: #fff;
+  background-color: rgba(0, 0, 0, .4);
+  padding: 10px 40px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 5px;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  /* max-height: 100vh; */
+}
+
+.screen {
+  cursor: pointer;
+  width: 75%;
+  background-color: rgba(0, 0, 0, .8) !important;
+  border-radius: 10px;
+  transition: .5s bottom ease;
+}
+
+.controls {
+  visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .3);
+  color: #fff;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  width: 75%;
+  transition: .5s all ease-in-out;
+  opacity: 0;
+}
+
+.screen:hover~.controls,
+.controls:hover {
+  visibility: visible;
+  opacity: 1;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.controls .btn {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: 0;
+  margin: 0 1px;
+}
+
+.controls .fa-play {
+  color: #6c9ea7
+}
+
+.controls .fa-stop {
+  color: #ac3b18
+}
+
+.controls .fa-pause {
+  color: #fff
+}
+
+.controls .fa-forward,
+.controls .fa-backward {
+  color: rgb(96, 177, 5)
+}
+
+.controls .fa-step-forward,
+.controls .fa-step-backward {
+  color: rgb(194, 206, 23)
+}
+
+.controls .timestamp {
+  color: #fff;
+  margin-left: 10px;
+}
+
+@media(max-width: 800px) {
+
+  .screen,
+  .controls {
+    width: 75%;
+  }
+}
