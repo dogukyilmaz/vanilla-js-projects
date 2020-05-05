@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa|Jost&display=swap');
+
+:root {
+  --font-family-type1: 'Jost', sans-serif;
+  --font-family-type2: 'Comfortaa', cursive;
+  --primary-color: #00a0f1;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: var(--font-family-type2);
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+  background-image: radial-gradient(circle farthest-corner at -0.6% 44.4%, rgba(142, 252, 152, 1) 0%, rgba(107, 214, 250, 1) 90%);
+}
+
+h1 {
+  color: var(--primary-color);
+}
+
+p {
+  text-align: center;
+}
+
+.btn {
+  background-color: var(--primary-color);
+  color: #fff;
+  cursor: pointer;
+  padding: 7px 15px;
+  font-size: 14px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.logo-img {
+  width: 250px;
+}
+
+.currency {
+  padding: 30px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.currency select {
+  padding: 10px 20px 10px 10px;
+  border: 1px solid white;
+  font-size: 16px;
+  border-radius: 10px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  background-image: url("./img/down-arrow.svg");
+  background-position: right 10px top 50%, 0, 0;
+  background-size: 12px auto, 100%;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transition: all .2s ease;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.currency select:hover {
+  color: var(--primary-color);
+  background-color: rgba(255, 255, 255, .1);
+}
+
+.currency input {
+  border: 0;
+  font-size: 30px;
+  text-align: right;
+  background-color: transparent;
+  max-width: 250px;
+}
+
+.swap-rate-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rate {
+  color: var(--primary-color);
+  font-size: 14px;
+  padding: 0 10px;
+}
+
+select:focus,
+button:focus,
+input:focus {
+  outline: 0;
+}
+
+
+@media(max-width: 600px) {
+  .currency input {
+    width: 150px;
+  }
+}
