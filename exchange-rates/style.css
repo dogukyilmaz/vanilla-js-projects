@@ -31,13 +31,22 @@ p {
 }
 
 .btn {
-  background-color: var(--primary-color);
+  background-color: rgba(0, 160, 241, .5);
   color: #fff;
   cursor: pointer;
-  padding: 7px 15px;
+  padding: 10px 15px;
   font-size: 14px;
   border: 0;
-  border-radius: 5px;
+  border-radius: 8px;
+  transition: all .2s ease;
+  font-weight: bold;
+  letter-spacing: 2px;
+  position: absolute;
+  left: 0;
+}
+
+.btn:hover {
+  background-color: rgba(0, 160, 241, 1);
 }
 
 .logo-img {
@@ -83,16 +92,22 @@ p {
   max-width: 250px;
 }
 
+input[type=number] {
+  text-align: center;
+}
+
 .swap-rate-container {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  position: relative;
 }
 
 .rate {
   color: var(--primary-color);
   font-size: 14px;
-  padding: 0 10px;
+  padding: 0 5px;
+  position: absolute;
+  left: 125px;
 }
 
 select:focus,
@@ -105,5 +120,9 @@ input:focus {
 @media(max-width: 600px) {
   .currency input {
     width: 150px;
+  }
+
+  .rate {
+    left: 78px;
   }
 }
