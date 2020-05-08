@@ -5,11 +5,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
+    integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
   <link rel="stylesheet" href="style.css">
   <title>Exchange Rates</title>
 </head>
 
 <body>
+  <div class="side-panes">
+    <div class="left-pane">
+      <h3>Update: <span id="date">08.05.2020</span></h3>
+      <div class="update-time"> Last <span id="last-update">16:24:45</span><i class="fas fa-history"></i></div>
+      <div class="update-time"> Next <span id="next-update">00:00:14</span><i class="fas fa-stopwatch"></i></div>
+    </div>
+    <div class="right-pane">
+      <table>
+        <thead>
+          <tr>
+            <td>Base </td>
+            <th>TRY: </th>
+            <th id="try">1 </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td></td>
+            <td>USD: </td>
+            <td id="usd">0.1394 </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>EUR: </td>
+            <td id="eur">0.1291 </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>GBP: </td>
+            <td id="gbp">0.324 </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
   <img src="img/logo.png" alt="logo" class="logo-img">
   <h1>Exchange Rates</h1>
   <p>Choose the currency and enter the </br> value of amount that you will change.</p>
