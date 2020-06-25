@@ -75,7 +75,7 @@ const STATIC_RATES = {
 		UYU: 5.9485,
 		ZAR: 2.5978,
 	},
-	documentation: 'https://www.exchangerate-api.com/docs',
+	documentation: 'https://www.exchangerate-api.com/docs', // v5 ~will be migrated to v6
 	result: 'success',
 	terms_of_use: 'https://www.exchangerate-api.com/terms',
 	time_last_update: 1588896004,
