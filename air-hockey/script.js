@@ -13,8 +13,8 @@ const centerY = canvas.height / 2 - 50;
 
 let ballX = cWidth / 2;
 let ballY = cHeight / 2;
-let BALL_SPEED_X = 18;
-let BALL_SPEED_Y = 4;
+let BALL_SPEED_X = -1;
+let BALL_SPEED_Y = 0;
 let BALL_RADIUS = 10;
 
 const FRAME_PER_SECOND = 60;
@@ -100,18 +100,26 @@ function getMousePosition(e) {
 	};
 }
 
+// CHECK CORNERS OF PADDLES
+// TODO: SECOND PADDLE
 function moveBall() {
-	console.log(ballX);
-	if (ballX >= cWidth - BALL_RADIUS || ballX <= 0 + BALL_RADIUS) {
-		if (
-			(ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT) ||
-			(ballY > paddle2Y && ballY < paddle2Y + PADDLE_HEIGHT)
-		) {
+	// Paddle 1 LOSE
+	if (ballX <= 0 + BALL_RADIUS + PADDLE_SPACE + PADDLE_WIDTH) {
+		if (ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT) {
+			BALL_SPEED_X = -BALL_SPEED_X;
+		} else if (ballX <= 0 + BALL_RADIUS) {
+			resetBall();
+		}
+	}
+	// Paddle 2 LOSE
+	if (ballX >= cWidth - BALL_RADIUS) {
+		if (ballY > paddle2Y && ballY < paddle2Y + PADDLE_HEIGHT) {
 			BALL_SPEED_X = -BALL_SPEED_X;
 		} else {
 			resetBall();
 		}
 	}
+	// Top and bottom edges
 	if (ballY >= cHeight - BALL_RADIUS || ballY <= 0 + BALL_RADIUS) {
 		BALL_SPEED_Y = -BALL_SPEED_Y;
 	}
