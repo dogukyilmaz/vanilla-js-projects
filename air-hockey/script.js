@@ -13,8 +13,8 @@ const centerY = canvas.height / 2 - 50;
 
 let ballX = cWidth / 2;
 let ballY = cHeight / 2;
-let BALL_SPEED_X = -1;
-let BALL_SPEED_Y = 0;
+let BALL_SPEED_X = 15;
+let BALL_SPEED_Y = 5;
 let BALL_RADIUS = 10;
 
 const FRAME_PER_SECOND = 60;
@@ -33,19 +33,19 @@ canvas.addEventListener('mousemove', (e) => {
 	const mousePos = getMousePosition(e);
 	if (mousePos.y >= cHeight - PADDLE_HEIGHT / 2) {
 		paddle1Y = cHeight - PADDLE_HEIGHT;
-		// paddle2Y = cHeight - PADDLE_HEIGHT;
+		// paddle2Y = cHeight - PADDLE_HEIGHT; // ADD FOR MANUAL
 	} else if (mousePos.y <= 0 + PADDLE_HEIGHT / 2) {
 		paddle1Y = 0;
-		// paddle2Y = 0;
+		// paddle2Y = 0; // ADD FOR MANUAL
 	} else {
 		paddle1Y = mousePos.y - PADDLE_HEIGHT / 2;
-		// paddle2Y = mousePos.y - PADDLE_HEIGHT / 2;
+		// paddle2Y = mousePos.y - PADDLE_HEIGHT / 2; // ADD FOR MANUAL
 	}
 });
 
 setInterval(() => {
 	draw();
-	computerMove();
+	computerMove(); // REMOVE for manual
 	moveBall();
 }, 1000 / FRAME_PER_SECOND);
 
@@ -70,11 +70,14 @@ function draw() {
 
 function computerMove() {
 	const paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
-	const rand = Math.floor(Math.random() * 40) + 35;
-	const rand2 = Math.floor(Math.random() * 12) + 8;
+	const rand = Math.floor(Math.random() * 30) + 30;
+	const rand2 = Math.floor(Math.random() * 8) + 8;
+	// console.log(rand, rand2);
 	if (paddle2YCenter < ballY - rand) {
+		console.log(paddle2Y, (paddle2Y += rand2), ballY);
 		paddle2Y += rand2;
 	} else if (paddle2YCenter > ballY + rand) {
+		console.log(paddle2Y, (paddle2Y -= rand2), ballY);
 		paddle2Y -= rand2;
 	}
 }
@@ -100,26 +103,36 @@ function getMousePosition(e) {
 	};
 }
 
-// CHECK CORNERS OF PADDLES
-// TODO: SECOND PADDLE
+// TODO: BALL Y AXIS RANDOM?
+
 function moveBall() {
 	// Paddle 1 LOSE
 	if (ballX <= 0 + BALL_RADIUS + PADDLE_SPACE + PADDLE_WIDTH) {
-		if (ballY > paddle1Y && ballY < paddle1Y + PADDLE_HEIGHT) {
+		// Check paddles top & bot collision
+		if (
+			ballY >= paddle1Y - BALL_RADIUS &&
+			ballY < paddle1Y + PADDLE_HEIGHT + BALL_RADIUS
+		) {
 			BALL_SPEED_X = -BALL_SPEED_X;
 		} else if (ballX <= 0 + BALL_RADIUS) {
+			// If lose wait for ball touches end line
 			resetBall();
 		}
 	}
 	// Paddle 2 LOSE
-	if (ballX >= cWidth - BALL_RADIUS) {
-		if (ballY > paddle2Y && ballY < paddle2Y + PADDLE_HEIGHT) {
+	if (ballX >= cWidth - (BALL_RADIUS + PADDLE_SPACE + PADDLE_WIDTH)) {
+		// Check paddles top & bot collision
+		if (
+			ballY >= paddle2Y - BALL_RADIUS &&
+			ballY < paddle2Y + PADDLE_HEIGHT + BALL_RADIUS
+		) {
 			BALL_SPEED_X = -BALL_SPEED_X;
-		} else {
+		} else if (ballX >= cWidth - BALL_RADIUS) {
+			// If lose wait for ball touches end line
 			resetBall();
 		}
 	}
-	// Top and bottom edges
+	// Top and bottom edges of board
 	if (ballY >= cHeight - BALL_RADIUS || ballY <= 0 + BALL_RADIUS) {
 		BALL_SPEED_Y = -BALL_SPEED_Y;
 	}
