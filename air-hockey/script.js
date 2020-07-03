@@ -68,16 +68,16 @@ function draw() {
 	drawBall(ballX, ballY, BALL_RADIUS, 0, 'green');
 }
 
+// TODO: Refactor computer move with random values as realistic as possible.
 function computerMove() {
 	const paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
 	const rand = Math.floor(Math.random() * 30) + 30;
 	const rand2 = Math.floor(Math.random() * 8) + 8;
+
 	// console.log(rand, rand2);
 	if (paddle2YCenter < ballY - rand) {
-		console.log(paddle2Y, (paddle2Y += rand2), ballY);
 		paddle2Y += rand2;
 	} else if (paddle2YCenter > ballY + rand) {
-		console.log(paddle2Y, (paddle2Y -= rand2), ballY);
 		paddle2Y -= rand2;
 	}
 }
