@@ -11,12 +11,14 @@ const cHeight = canvas.height;
 
 let firstPlayerScore = 0;
 let secondPlayerScore = 0;
-const WIN_SCORE = 2;
+const WIN_SCORE = 10;
+
+let showResultSection = false;
 
 let ballX = cWidth / 2;
 let ballY = cHeight / 2;
 let BALL_SPEED_X = 15;
-let BALL_SPEED_Y = 4; // TODO: random Y
+let BALL_SPEED_Y = getRandomVelocityY();
 let BALL_RADIUS = 10;
 
 const FRAME_PER_SECOND = 60;
@@ -31,6 +33,8 @@ let paddle2Y = canvas.height / 2 - 50;
 
 let firstPaddleColor = 'orange';
 let secondPaddleColor = 'magenta';
+
+canvas.addEventListener('mousedown', handleGameResult);
 
 canvas.addEventListener('mousemove', (e) => {
 	const mousePos = getMousePosition(e);
@@ -52,9 +56,24 @@ setInterval(() => {
 	moveBall();
 }, 1000 / FRAME_PER_SECOND);
 
+function handleGameResult(e) {
+	if (showResultSection) {
+		firstPlayerScore = 0;
+		secondPlayerScore = 0;
+		showResultSection = false;
+	}
+}
+
 function draw() {
 	drawCanvas();
 	drawScores();
+
+	// Check if there is winner
+	// If there show restart button add event listener etc.
+	if (showResultSection) {
+		drawResult();
+		return;
+	}
 	drawPaddles(
 		PADDLE_SPACE,
 		paddle1Y,
@@ -95,18 +114,16 @@ function computerMove() {
 	}
 }
 
-// TODO: Check and refactor
 function resetBall() {
 	if (firstPlayerScore >= WIN_SCORE || secondPlayerScore >= WIN_SCORE) {
-		// const winner = firstPlayerScore > secondPlayerScore ? 'First' : 'Second';
-		// alert(`${winner} Player won!`);
+		// Show result screen it will run handleGameResult function
 		// Reset stats and game
-		firstPlayerScore = 0;
-		secondPlayerScore = 0;
-
-		// Random y
+		showResultSection = true;
 	}
 	BALL_SPEED_X = -BALL_SPEED_X;
+	BALL_SPEED_Y = getRandomVelocityY(); // Random y ~~ Each turn random Y velocity
+
+	// Reset Ball Position Each Turn
 	ballX = cWidth / 2;
 	ballY = cHeight / 2;
 }
@@ -123,8 +140,12 @@ function getMousePosition(e) {
 	};
 }
 
-// TODO: BALL Y AXIS RANDOM?
 function moveBall() {
+	// Check if there is winner?
+	if (showResultSection) {
+		return;
+	}
+
 	// Paddle 1 LOSE
 	if (ballX <= 0 + BALL_RADIUS + PADDLE_SPACE + PADDLE_WIDTH) {
 		// Check paddles top & bot collision
@@ -182,4 +203,24 @@ function drawBall(x, y, radius, angle = 0, color = 'gray') {
 	ctx.beginPath();
 	ctx.arc(x, y, radius, angle, Math.PI * 2, true);
 	ctx.fill();
+}
+
+function drawResult() {
+	const winner = firstPlayerScore > secondPlayerScore ? true : false;
+
+	ctx.font = '50px Montserrat';
+	ctx.fillStyle = winner ? firstPaddleColor : secondPaddleColor;
+	ctx.fillText(
+		`${winner ? 'First' : 'Second'} Player Won!`,
+		cWidth / 2 - 300,
+		150
+	);
+
+	ctx.font = '30px Montserrat';
+	ctx.fillStyle = 'green';
+	ctx.fillText('Click to continue...', cWidth / 2 - 210, 200);
+}
+
+function getRandomVelocityY() {
+	return Math.floor(Math.random() * 14) + 1;
 }
