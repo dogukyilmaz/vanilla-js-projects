@@ -67,6 +67,7 @@ function handleGameResult(e) {
 function draw() {
 	drawCanvas();
 	drawScores();
+	drawNet();
 
 	// Check if there is winner
 	// If there show restart button add event listener etc.
@@ -191,6 +192,13 @@ function moveBall() {
 function drawCanvas() {
 	ctx.fillStyle = 'black';
 	ctx.fillRect(0, 0, cWidth, cHeight);
+}
+
+function drawNet() {
+	ctx.fillStyle = 'gray';
+	for (let i = 0; i < cHeight; i += 40) {
+		ctx.fillRect(cWidth / 2 - 2, -20 + i, 4, 30);
+	}
 }
 
 function drawPaddles(x, y, color = 'gray', w, h) {
