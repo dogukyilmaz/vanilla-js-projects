@@ -8,13 +8,15 @@ if (canvas.getContext) {
 
 const cWidth = canvas.width;
 const cHeight = canvas.height;
-const centerX = canvas.width / 2 - 50;
-const centerY = canvas.height / 2 - 50;
+
+let firstPlayerScore = 0;
+let secondPlayerScore = 0;
+const WIN_SCORE = 2;
 
 let ballX = cWidth / 2;
 let ballY = cHeight / 2;
 let BALL_SPEED_X = 15;
-let BALL_SPEED_Y = 5;
+let BALL_SPEED_Y = 4; // TODO: random Y
 let BALL_RADIUS = 10;
 
 const FRAME_PER_SECOND = 60;
@@ -23,8 +25,9 @@ let PADDLE_WIDTH = 10;
 let PADDLE_HEIGHT = 100;
 
 const PADDLE_SPACE = 2;
-let paddle1Y = centerY;
-let paddle2Y = centerY;
+
+let paddle1Y = canvas.height / 2 - 50;
+let paddle2Y = canvas.height / 2 - 50;
 
 let firstPaddleColor = 'orange';
 let secondPaddleColor = 'magenta';
@@ -45,12 +48,13 @@ canvas.addEventListener('mousemove', (e) => {
 
 setInterval(() => {
 	draw();
-	computerMove(); // REMOVE for manual
+	computerMove(); // REMOVE for manuel
 	moveBall();
 }, 1000 / FRAME_PER_SECOND);
 
 function draw() {
 	drawCanvas();
+	drawScores();
 	drawPaddles(
 		PADDLE_SPACE,
 		paddle1Y,
@@ -68,6 +72,15 @@ function draw() {
 	drawBall(ballX, ballY, BALL_RADIUS, 0, 'green');
 }
 
+function drawScores() {
+	ctx.fillStyle = 'rgba(255,165,0, .2)';
+	ctx.font = '200px Montserrat';
+	ctx.fillText(firstPlayerScore, cWidth / 4, cHeight / 2 + 70);
+
+	ctx.fillStyle = 'rgba(255,0,255, .2)';
+	ctx.fillText(secondPlayerScore, cWidth - cWidth / 2 + 100, cHeight / 2 + 70);
+}
+
 // TODO: Refactor computer move with random values as realistic as possible.
 function computerMove() {
 	const paddle2YCenter = paddle2Y + PADDLE_HEIGHT / 2;
@@ -82,10 +95,17 @@ function computerMove() {
 	}
 }
 
+// TODO: Check and refactor
 function resetBall() {
-	// if(BALL_SPEED_X > 0) {
+	if (firstPlayerScore >= WIN_SCORE || secondPlayerScore >= WIN_SCORE) {
+		// const winner = firstPlayerScore > secondPlayerScore ? 'First' : 'Second';
+		// alert(`${winner} Player won!`);
+		// Reset stats and game
+		firstPlayerScore = 0;
+		secondPlayerScore = 0;
 
-	// }
+		// Random y
+	}
 	BALL_SPEED_X = -BALL_SPEED_X;
 	ballX = cWidth / 2;
 	ballY = cHeight / 2;
@@ -104,7 +124,6 @@ function getMousePosition(e) {
 }
 
 // TODO: BALL Y AXIS RANDOM?
-
 function moveBall() {
 	// Paddle 1 LOSE
 	if (ballX <= 0 + BALL_RADIUS + PADDLE_SPACE + PADDLE_WIDTH) {
@@ -114,8 +133,12 @@ function moveBall() {
 			ballY < paddle1Y + PADDLE_HEIGHT + BALL_RADIUS
 		) {
 			BALL_SPEED_X = -BALL_SPEED_X;
+
+			const deltaY = ballY - (paddle1Y + PADDLE_HEIGHT / 2);
+			BALL_SPEED_Y = deltaY * 0.35;
 		} else if (ballX <= 0 + BALL_RADIUS) {
 			// If lose wait for ball touches end line
+			secondPlayerScore++;
 			resetBall();
 		}
 	}
@@ -127,8 +150,12 @@ function moveBall() {
 			ballY < paddle2Y + PADDLE_HEIGHT + BALL_RADIUS
 		) {
 			BALL_SPEED_X = -BALL_SPEED_X;
+
+			const deltaY = ballY - (paddle2Y + PADDLE_HEIGHT / 2);
+			BALL_SPEED_Y = deltaY * 0.35;
 		} else if (ballX >= cWidth - BALL_RADIUS) {
 			// If lose wait for ball touches end line
+			firstPlayerScore++;
 			resetBall();
 		}
 	}
