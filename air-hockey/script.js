@@ -95,7 +95,7 @@ function draw() {
 function drawScores() {
 	ctx.fillStyle = 'rgba(255,165,0, .2)';
 	ctx.font = '200px Montserrat';
-	ctx.fillText(firstPlayerScore, cWidth / 4, cHeight / 2 + 70);
+	ctx.fillText(firstPlayerScore, cWidth / 2 - 260, cHeight / 2 + 70);
 
 	ctx.fillStyle = 'rgba(255,0,255, .2)';
 	ctx.fillText(secondPlayerScore, cWidth - cWidth / 2 + 100, cHeight / 2 + 70);
@@ -220,13 +220,13 @@ function drawResult() {
 	ctx.fillStyle = winner ? firstPaddleColor : secondPaddleColor;
 	ctx.fillText(
 		`${winner ? 'First' : 'Second'} Player Won!`,
-		cWidth / 2 - 300,
+		cWidth / 2 - 200,
 		150
 	);
 
 	ctx.font = '30px Montserrat';
 	ctx.fillStyle = 'green';
-	ctx.fillText('Click to continue...', cWidth / 2 - 210, 200);
+	ctx.fillText('Click to continue...', cWidth / 2 - 120, 200);
 }
 
 function getRandomVelocityY() {
