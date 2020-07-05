@@ -29,12 +29,25 @@ let PADDLE_HEIGHT = 100;
 const PADDLE_SPACE = 2;
 
 let paddle1Y = canvas.height / 2 - 50;
+let paddle1X = PADDLE_SPACE + 0;
+
 let paddle2Y = canvas.height / 2 - 50;
+let paddle2X = cWidth - PADDLE_WIDTH - PADDLE_SPACE;
 
 let firstPaddleColor = 'orange';
 let secondPaddleColor = 'magenta';
 
 canvas.addEventListener('mousedown', handleGameResult);
+
+// Paddle Shake
+canvas.addEventListener('click', () => {
+	paddle1X = 20;
+	// paddle2X = cWidth - PADDLE_WIDTH - PADDLE_SPACE - 20; // Paddle 2 test
+	setTimeout(() => {
+		paddle1X = PADDLE_SPACE + 0;
+		// paddle2X = cWidth - PADDLE_WIDTH - PADDLE_SPACE; // Paddle 2 test
+	}, 100);
+});
 
 canvas.addEventListener('mousemove', (e) => {
 	const mousePos = getMousePosition(e);
@@ -76,14 +89,14 @@ function draw() {
 		return;
 	}
 	drawPaddles(
-		PADDLE_SPACE,
+		paddle1X,
 		paddle1Y,
 		firstPaddleColor,
 		PADDLE_WIDTH,
 		PADDLE_HEIGHT
 	);
 	drawPaddles(
-		cWidth - PADDLE_WIDTH - PADDLE_SPACE,
+		paddle2X,
 		paddle2Y,
 		secondPaddleColor,
 		PADDLE_WIDTH,
@@ -148,7 +161,7 @@ function moveBall() {
 	}
 
 	// Paddle 1 LOSE
-	if (ballX <= 0 + BALL_RADIUS + PADDLE_SPACE + PADDLE_WIDTH) {
+	if (ballX <= 0 + BALL_RADIUS + paddle1X + PADDLE_WIDTH) {
 		// Check paddles top & bot collision
 		if (
 			ballY >= paddle1Y - BALL_RADIUS &&
@@ -165,7 +178,7 @@ function moveBall() {
 		}
 	}
 	// Paddle 2 LOSE
-	if (ballX >= cWidth - (BALL_RADIUS + PADDLE_SPACE + PADDLE_WIDTH)) {
+	if (ballX >= paddle2X - BALL_RADIUS) {
 		// Check paddles top & bot collision
 		if (
 			ballY >= paddle2Y - BALL_RADIUS &&
